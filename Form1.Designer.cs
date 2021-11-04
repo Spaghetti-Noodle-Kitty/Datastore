@@ -130,7 +130,7 @@ namespace Datastore
             this.Controls.Add(this.txbPass);
             this.Name = "frmDatastore";
             this.ShowIcon = false;
-            this.Text = "Datastore v.1.2";
+            this.Text = "Datastore v.2.1";
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -44,12 +44,13 @@ namespace Datastore
 
         private void btnDecrypt_Click(object sender, EventArgs e)
         {
-            if (txbPass.Text == "" || txbPass.Text.Length < 8)
-                MessageBox.Show("You need to set an at least\n8 characters long password");
+            if (txbPass.Text == "" || txbPass.Text.Length != 16)
+                MessageBox.Show("You need to set a password of 16 chars");
             else
             {
                 string TMPEncTXT = txbContents.Text;
-                txbContents.Text = Cryptography.Decrypt(TMPEncTXT, txbPass.Text);
+                AES.SetKey(txbPass.Text);
+                txbContents.Text = AES.AesDecrypt(TMPEncTXT);
             }
         }
 
@@ -57,11 +58,13 @@ namespace Datastore
         {
             string TMPEnc = "";
 
-            if (txbPass.Text == "" || txbPass.Text.Length < 8)
-                MessageBox.Show("You need to set an at least\n8 characters long password");
+            if (txbPass.Text == "" || txbPass.Text.Length != 16)
+                MessageBox.Show("You need to set a password of 16 chars");
             else
             {
-                TMPEnc = Cryptography.EncryptString(txbContents.Text, txbPass.Text);
+                AES.SetKey(txbPass.Text);
+                TMPEnc = AES.AesEncrypt(txbContents.Text);
+
                 SaveFileDialog sfd = new SaveFileDialog();
                 sfd.InitialDirectory = FileHandling.WorkingFolder;
                 sfd.DefaultExt = ".dst";
